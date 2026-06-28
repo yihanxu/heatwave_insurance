@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Heatwave Insurance Test</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Playfair Display for editorial headers, Inter for clean body text -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            sand: {
+              50: '#fbfbf9',
+              100: '#f5f4f0',
+              200: '#eadecf',
+              300: '#decbb5',
+              800: '#40352c',
+              900: '#261f1a',
+            },
+            terracotta: {
+              50: '#fdf4f2',
+              100: '#fbe7e2',
+              500: '#d96a4c',
+              600: '#c25336',
+              700: '#a33e24',
+            },
+            sage: {
+              50: '#f4f6f4',
+              100: '#e6eae5',
+              600: '#5f7560',
+              700: '#4a5d4b',
+              800: '#344235',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .checkbox-card {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .checkbox-card:hover {
+      transform: translateY(-2px);
+    }
+    .progress-bar-fill {
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f5f4f0;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #decbb5;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #c3b19b;
+    }
+  </style>
+</head>
+<body class="bg-sand-50 text-sand-900 font-sans antialiased selection:bg-terracotta-100 selection:text-terracotta-700 pb-20 lg:pb-0">
+
+  <header class="border-b border-sand-200 py-12 md:py-16 bg-sand-100">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      
+      <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-sand-800 mb-4 leading-tight">
+        Luxury or Insurance?
+      </h1>
+      <p class="font-serif text-lg md:text-xl text-sage-700 mb-4 max-w-xl mx-auto leading-relaxed">
+        A simple test for deciding whether aircon still counts as a luxury
+      </p>
+      
+      <div class="mb-8">
+        <p class="text-sm text-sand-800 tracking-wide">
+          Created by <a href="https://www.linkedin.com/in/yihanxu/" target="_blank" rel="noopener noreferrer" class="font-bold underline hover:text-terracotta-600 transition-colors">Dr Yihan Xu</a>
+        </p>
+        <p class="text-[10px] text-sage-700 uppercase tracking-widest font-semibold mt-1">
+          Health economist | Behavioural scientist
+        </p>
+      </div>
+      
+      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-sand-200 text-left relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-2 h-full bg-terracotta-500"></div>
+        
+        <div class="space-y-4">
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-terracotta-600 mb-1">Who is this for?</h3>
+            <p class="text-sm text-sand-800 leading-relaxed">
+              For households in the UK and temperate Europe, where air conditioning still feels optional, until a heatwave arrives.
+            </p>
+          </div>
+          
+          <div class="border-t border-sand-100 pt-4">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-sage-600 mb-1">What does it do:</h3>
+            <p class="text-sm text-sand-800 leading-relaxed mb-2">
+              Help you think through whether installing air con is best seen as:
+            </p>
+            <ul class="list-disc pl-5 text-sm text-sand-800 space-y-1">
+              <li>A <strong class="text-sand-800 font-semibold">luxury</strong></li>
+              <li>A <strong class="text-amber-600 font-semibold">comfort upgrade</strong></li>
+              <li>An <strong class="text-emerald-600 font-bold">insurance (health-risk hedge)</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left Column: The Interactive Form -->
+      <form id="insurance-test-form" class="lg:col-span-7 space-y-12" onsubmit="event.preventDefault();">
+        
+        <p class="text-xs font-semibold text-sage-600 uppercase tracking-wider mb-2">
+          💡 Every checkbox ticked represents another reason to treat cooling as protection against heatwave risk.
+        </p>
+
+        <!-- SECTION 1 -->
+        <section class="bg-white rounded-2xl p-6 md:p-8 border border-sand-200 shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-bold uppercase tracking-widest text-sage-600">Section 1 of 4</span>
+          </div>
+          <div class="flex items-start gap-4 mb-6">
+            <div class="p-3 bg-terracotta-50 text-terracotta-600 rounded-xl">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="font-serif text-2xl font-bold text-sand-800">Who is at risk?</h2>
+              <p class="text-sm text-sage-700 mt-1">Who in your household is most vulnerable to extreme heat?</p>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+              <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+              <span class="text-sm text-sand-800 leading-tight">Baby or young child</span>
+            </label>
+            <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+              <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+              <span class="text-sm text-sand-800 leading-tight">Older adult</span>
+            </label>
+            <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+              <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+              <span class="text-sm text-sand-800 leading-tight">Pregnant person</span>
+            </label>
+            <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+              <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+              <span class="text-sm text-sand-800 leading-tight">Someone with chronic illness</span>
+            </label>
+            <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+              <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+              <span class="text-sm text-sand-800 leading-tight">Someone who works from home</span>
+            </label>
+            <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+              <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+              <span class="text-sm text-sand-800 leading-tight">Pets who struggle with heat</span>
+            </label>
+          </div>
+        </section>
+
+        <section class="bg-white rounded-2xl p-6 md:p-8 border border-sand-200 shadow-sm space-y-6">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-widest text-sage-600">Section 2 of 4</span>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="p-3 bg-terracotta-50 text-terracotta-600 rounded-xl">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M14 12a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="font-serif text-2xl font-bold text-sand-800">What does heat cost you?</h2>
+              <p class="text-sm text-sage-700 mt-1">Think beyond temperature. How does heat affect sleep, work, childcare and everyday life?</p>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-sage-600 mb-3 flex items-center gap-1.5">
+              <span>●</span> Direct effects
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+                <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+                <span class="text-sm text-sand-800 leading-tight">Sleep becomes difficult</span>
+              </label>
+              <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+                <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+                <span class="text-sm text-sand-800 leading-tight">I struggle to concentrate or work effectively</span>
+              </label>
+              <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+                <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+                <span class="text-sm text-sand-800 leading-tight">The indoor temperature stays uncomfortable well into the evening</span>
+              </label>
+              <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+                <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+                <span class="text-sm text-sand-800 leading-tight">Fans are no longer enough to stay comfortable</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-sage-600 mb-3 flex items-center gap-1.5">
+              <span>●</span> Indirect effects
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+                <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+                <span class="text-sm text-sand-800 leading-tight">Childcare becomes noticeably harder</span>
+              </label>
+              <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+                <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+                <span class="text-sm text-sand-800 leading-tight">Daily routines need to change because of the heat</span>
+              </label>
+              <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+                <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+                <span class="text-sm text-sand-800 leading-tight">I avoid cooking, exercising, or using parts of the home</span>
+              </label>
+              <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+                <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+                <span class="text-sm text-sand-800 leading-tight">I end up leaving the house just to cool down</span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section class="bg-white rounded-2xl p-6 md:p-8 border border-sand-200 shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-xs font-bold uppercase tracking-widest text-sage-600">Section 3 of 4</span>
+          </div>
+          <div class="flex items-start gap-4 mb-6">
+            <div class="p-3 bg-terracotta-50 text-terracotta-600 rounded-xl">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="font-serif text-2xl font-bold text-sand-800">How exposed is your home?</h2>
+              <p class="text-sm text-sage-700 mt-1">Some homes shed heat quickly. Others hold onto it long after sunset.</p>
+            </div>
+          </div>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+              <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+              <span class="text-sm text-sand-800 leading-tight">Top-floor bedroom</span>
+            </label>
+            <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+              <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+              <span class="text-sm text-sand-800 leading-tight">Loft conversion</span>
+            </label>
+            <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+              <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+              <span class="text-sm text-sand-800 leading-tight">South/west-facing rooms</span>
+            </label>
+            <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+              <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+              <span class="text-sm text-sand-800 leading-tight">Poor ventilation</span>
+            </label>
+            <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+              <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+              <span class="text-sm text-sand-800 leading-tight">Large windows / conservatory effect</span>
+            </label>
+            <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+              <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+              <span class="text-sm text-sand-800 leading-tight">Indoor temperature stays high at night</span>
+            </label>
+          </div>
+        </section>
+
+        <section class="bg-white rounded-2xl p-6 md:p-8 border border-sand-200 shadow-sm space-y-6">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-widest text-sage-600">Section 4 of 4</span>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="p-3 bg-terracotta-50 text-terracotta-600 rounded-xl">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="font-serif text-2xl font-bold text-sand-800">How do you currently cope?</h2>
+              <p class="text-sm text-sage-700 mt-1">What protection do you already have, and what do your past actions reveal?</p>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-sage-600 mb-3 flex items-center gap-1.5">
+              <span>●</span> What protection do you have now?
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+                <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+                <span class="text-sm text-sand-800 leading-tight">I do not have a reliably cool place to work during heatwaves</span>
+              </label>
+              <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+                <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+                <span class="text-sm text-sand-800 leading-tight">I do not have a cool bedroom where I can sleep comfortably</span>
+              </label>
+              <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+                <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+                <span class="text-sm text-sand-800 leading-tight">Shading, ventilation, and fans are not enough to keep my home comfortable</span>
+              </label>
+              <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+                <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+                <span class="text-sm text-sand-800 leading-tight">Hot weather forces me to change my normal routine</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-sage-600 mb-3 flex items-center gap-1.5">
+              <span>●</span> What did you do in the past?
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+                <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+                <span class="text-sm text-sand-800 leading-tight">During a heatwave, I’ve searched for ways to cool my home.</span>
+              </label>
+              <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+                <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+                <span class="text-sm text-sand-800 leading-tight">I’ve delayed installing air conditioning because I couldn’t justify the cost.</span>
+              </label>
+              <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+                <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+                <span class="text-sm text-sand-800 leading-tight">I have told myself after a previous summer that I would do something before the next heatwave</span>
+              </label>
+              <label class="checkbox-card flex items-start gap-3 p-5 rounded-xl border border-sand-200 bg-sand-50/50 cursor-pointer hover:border-terracotta-300 min-h-[72px]">
+                <input type="checkbox" name="item" class="mt-1 w-5 h-5 rounded text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+                <span class="text-sm text-sand-800 leading-tight">Reading this checklist feels surprisingly relevant</span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <section class="bg-gradient-to-br from-sand-100 to-white rounded-2xl p-6 md:p-8 border border-sand-300 shadow-sm space-y-6">
+          <div class="flex items-start gap-4">
+            <div class="p-3 bg-sage-50 text-sage-600 rounded-xl">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="font-serif text-2xl font-bold text-sand-800">5. A Behavioral Economics Reflection</h2>
+              <p class="text-sm text-sage-700 mt-1">This question does not affect your score. It is here to challenge how you view the decision.</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <p class="text-sm font-semibold text-sand-800">Which question feels more natural to you now?</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <label class="checkbox-card relative flex flex-col p-5 rounded-xl border border-sand-200 bg-white cursor-pointer hover:border-terracotta-300 group">
+                <div class="flex items-center gap-3">
+                  <input type="radio" name="reflection" value="A" class="w-5 h-5 text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+                  <span class="text-sm font-bold text-sand-800">Option A</span>
+                </div>
+                <p class="font-serif italic text-base text-sand-900 mt-3 group-hover:text-terracotta-600 transition-colors">
+                  “How often will I use it?”
+                </p>
+                <div id="feedback-A" class="hidden mt-4 text-xs text-sand-800 bg-sand-50 p-3 rounded-lg border border-sand-200 leading-relaxed">
+                  A natural instinct, but focuses purely on frequency rather than the peak severity of heatwaves.
+                </div>
+              </label>
+
+              <label class="checkbox-card relative flex flex-col p-5 rounded-xl border border-sand-200 bg-white cursor-pointer hover:border-terracotta-300 group">
+                <div class="flex items-center gap-3">
+                  <input type="radio" name="reflection" value="B" class="w-5 h-5 text-terracotta-600 focus:ring-terracotta-500 border-sand-300">
+                  <span class="text-sm font-bold text-sand-800">Option B</span>
+                </div>
+                <p class="font-serif italic text-base text-sand-900 mt-3 group-hover:text-terracotta-600 transition-colors">
+                  “How bad are the days when I don’t have it?”
+                </p>
+                <div id="feedback-B" class="hidden mt-4 text-xs text-sage-800 bg-sage-50 p-3 rounded-lg border border-sage-200 leading-relaxed font-medium">
+                  That’s the shift. You’ve reframed the problem from a cost equation to a risk mitigation strategy.
+                </div>
+              </label>
+            </div>
+          </div>
+        </section>
+
+      </form>
+
+      <aside class="lg:col-span-5 lg:sticky lg:top-8 space-y-6">
+        
+        <!-- Live Score Widget -->
+        <div class="bg-white rounded-2xl p-6 md:p-8 border border-sand-200 shadow-md">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs font-bold uppercase tracking-widest text-sand-800">Heatwave Insurance Score</span>
+            <span id="score-text" class="text-2xl font-bold text-terracotta-500">0 <span class="text-sm text-sand-800">/ 28</span></span>
+          </div>
+          
+          <div class="w-full bg-sand-100 h-3 rounded-full overflow-hidden mb-6 relative">
+            <div id="progress-bar-fill" class="progress-bar-fill bg-gradient-to-r from-terracotta-500 to-sage-600 h-full w-0"></div>
+          </div>
+
+          <div class="mb-6">
+            <div id="current-badge" class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-sand-100 text-sand-800">
+              <span class="w-2 h-2 rounded-full bg-sand-400"></span>
+              Calculating...
+            </div>
+          </div>
+
+          <div class="space-y-4 border-t border-sand-100 pt-6">
+            <h4 id="classification-title" class="font-serif text-2xl font-bold text-sand-800">Luxury</h4>
+            <p id="classification-desc" class="text-sm text-sand-800 leading-relaxed">
+              Your household currently has enough resilience that cooling is mainly a lifestyle choice.
+            </p>
+          </div>
+
+          <div class="mt-6 bg-sand-50 p-4 rounded-xl border border-sand-200">
+            <p class="text-xs font-semibold text-terracotta-600 uppercase tracking-wider mb-1">An Insurance Perspective</p>
+            <p class="font-serif text-sm italic text-sand-800">
+              “Don't ask only how often you'll use it. Ask how much downside it protects you from.”
+            </p>
+          </div>
+        </div>
+
+        <!-- Screenshot Card Wrapper with Dynamic Wording Profile Section -->
+        <div id="screenshot-card" class="bg-gradient-to-br from-sand-100 to-white rounded-2xl p-6 border-2 border-dashed border-sand-300 space-y-4">
+          <div class="flex justify-between items-start">
+            <div>
+              <h5 class="font-serif font-bold text-sand-800">Heatwave Insurance Score</h5>
+            </div>
+            <span id="card-score" class="text-3xl font-extrabold text-terracotta-600 font-serif">0/28</span>
+          </div>
+
+          <div>
+            <p class="text-xs text-sand-800 uppercase tracking-widest font-bold">Category Match:</p>
+            <p id="card-category" class="font-serif text-lg font-bold text-sand-900 mt-0.5">Calculating Category...</p>
+            <p id="card-verdict" class="text-xs text-sand-800 italic mt-1 leading-relaxed">Select items to generate your summary scorecard card suitable for save/share.</p>
+          </div>
+
+          <!-- Dynamic Plain Language Household Profile Section -->
+          <div class="border-t border-sand-200 pt-3">
+            <p class="text-xs text-sand-800 uppercase tracking-widest font-bold mb-1">Your Household Profile:</p>
+            <div id="card-profile-dynamic" class="text-xs text-sand-800 space-y-1 leading-relaxed">
+              Your answers suggest:
+              <ul class="list-disc pl-4 mt-1 space-y-0.5">
+                <li>household vulnerability</li>
+                <li>heat exposure</li>
+                <li>disruption to daily routines</li>
+                <li>limited ways to adapt</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="bg-white p-3 rounded-xl border border-sand-200 text-[11px] text-sand-800 flex justify-between gap-4">
+            <div>
+              <p class="font-semibold">Who is at risk?: <span id="v-count">0</span></p>
+              <p class="font-semibold">How exposed is your home?: <span id="p-count">0</span></p>
+            </div>
+            <div class="text-right">
+              <p class="font-semibold">What does heat cost you?: <span id="d-count">0</span></p>
+              <p class="font-semibold">How do you currently cope?: <span id="r-count">0</span></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <button type="button" id="copy-result-btn" class="flex items-center justify-center gap-2 bg-terracotta-600 hover:bg-terracotta-700 text-white font-medium py-3 px-4 rounded-xl shadow-sm hover:shadow transition-all text-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+            </svg>
+            Copy my result
+          </button>
+          
+          <button type="button" id="reset-btn" class="flex items-center justify-center gap-2 bg-white hover:bg-sand-100 text-sand-800 border border-sand-300 font-medium py-3 px-4 rounded-xl transition-all text-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 15H19" />
+            </svg>
+            Reset Test
+          </button>
+        </div>
+
+        <div id="toast" class="hidden text-center text-xs py-2 px-4 rounded-lg bg-sage-800 text-white shadow-sm transition-opacity duration-300">
+          Result copied successfully to clipboard!
+        </div>
+
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- Sticky Bottom Score Tracker for Mobile (lg:hidden) -->
+  <div class="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-sand-200 px-4 py-3 shadow-lg flex items-center justify-between lg:hidden">
+    <div class="flex flex-col">
+      <span class="text-[10px] text-sage-600 uppercase tracking-wider font-bold">Heatwave Insurance Score</span>
+      <span class="text-xs text-sand-800 font-medium mt-0.5">
+        Current Assessment: <strong id="mobile-category-text" class="text-terracotta-600">Calculating...</strong>
+      </span>
+    </div>
+    <div class="bg-sand-100 px-3 py-1.5 rounded-lg border border-sand-200 flex items-center gap-1.5">
+      <span id="mobile-score-display" class="font-serif font-bold text-lg text-sand-800">0</span>
+      <span class="text-[10px] text-sand-800 font-bold uppercase tracking-wider">/ 28</span>
+    </div>
+  </div>
+
+  <footer class="bg-sand-100 border-t border-sand-200 mt-20 py-12 text-sand-800">
+    <div class="max-w-4xl mx-auto px-4 text-center space-y-4 text-xs md:text-sm">
+      <div class="max-w-2xl mx-auto text-sand-800 leading-relaxed text-[11px]">
+        <strong>Public Health & Medical Disclaimer:</strong> This isn't a validated clinical tool. The weighting reflects a behavioural economics perspective rather than medical risk prediction. During periods of extreme heat, always follow local public health directives and prioritize vulnerable residents.
+      </div>
+      <p class="text-[10px] text-sage-600 tracking-wider uppercase font-semibold">
+        The Heatwave Insurance Test &copy; 2026. Created by <a href="https://www.linkedin.com/in/yihanxu/" target="_blank" rel="noopener noreferrer" class="underline hover:text-terracotta-600 transition-colors">Dr Yihan Xu</a>.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      const form = document.getElementById('insurance-test-form');
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      const scoreText = document.getElementById('score-text');
+      const progressBarFill = document.getElementById('progress-bar-fill');
+      const currentBadge = document.getElementById('current-badge');
+      const classTitle = document.getElementById('classification-title');
+      const classDesc = document.getElementById('classification-desc');
+      
+      const mobileCategoryText = document.getElementById('mobile-category-text');
+      const mobileScoreDisplay = document.getElementById('mobile-score-display');
+
+      const cardScore = document.getElementById('card-score');
+      const cardCategory = document.getElementById('card-category');
+      const cardVerdict = document.getElementById('card-verdict');
+      const cardProfileDynamic = document.getElementById('card-profile-dynamic');
+      const vCountSpan = document.getElementById('v-count');
+      const dCountSpan = document.getElementById('d-count');
+      const pCountSpan = document.getElementById('p-count');
+      const rCountSpan = document.getElementById('r-count');
+
+      const copyBtn = document.getElementById('copy-result-btn');
+      const resetBtn = document.getElementById('reset-btn');
+      const toast = document.getElementById('toast');
+
+      function updateCheckboxCardStyling() {
+        checkboxes.forEach(checkbox => {
+          const parentCard = checkbox.closest('.checkbox-card');
+          if (checkbox.checked) {
+            parentCard.classList.remove('bg-sand-50/50', 'border-sand-200');
+            parentCard.classList.add('bg-terracotta-50', 'border-terracotta-500', 'ring-1', 'ring-terracotta-100');
+          } else {
+            parentCard.classList.add('bg-sand-50/50', 'border-sand-200');
+            parentCard.classList.remove('bg-terracotta-50', 'border-terracotta-500', 'ring-1', 'ring-terracotta-100');
+          }
+        });
+      }
+
+      function calculateScores() {
+        let totalScore = 0;
+        let vCount = 0; // Section 1: Who is at risk?
+        let dCount = 0; // Section 2: What does heat cost you?
+        let pCount = 0; // Section 3: How exposed is your home?
+        let rCount = 0; // Section 4: How do you currently cope?
+
+        checkboxes.forEach((cb, index) => {
+          if (cb.checked) {
+            totalScore += 1;
+            if (index < 6) {
+              vCount += 1;
+            } else if (index >= 6 && index < 14) {
+              dCount += 1;
+            } else if (index >= 14 && index < 20) {
+              pCount += 1;
+            } else if (index >= 20 && index < 28) {
+              rCount += 1;
+            }
+          }
+        });
+
+        scoreText.innerHTML = `${totalScore} <span class="text-sm text-sand-800">/ 28</span>`;
+        cardScore.innerText = `${totalScore}/28`;
+        mobileScoreDisplay.innerText = totalScore;
+        
+        const percentage = (totalScore / 28) * 100;
+        progressBarFill.style.width = `${percentage}%`;
+
+        vCountSpan.innerText = vCount;
+        dCountSpan.innerText = dCount;
+        pCountSpan.innerText = pCount;
+        rCountSpan.innerText = rCount;
+
+        let category = "";
+        let explanation = "";
+        let badgeClass = "";
+        let badgeText = "";
+        let verdictShort = "";
+
+        if (totalScore <= 8) {
+          category = "Luxury";
+          badgeText = "Category: Luxury";
+          badgeClass = "bg-sand-100 text-sand-800 border border-sand-300";
+          explanation = "Your household currently has enough resilience that cooling is mainly a lifestyle choice.";
+          verdictShort = "Your current score points to traditional, optional luxury use.";
+        } else if (totalScore >= 9 && totalScore <= 15) {
+          category = "Comfort Upgrade";
+          badgeText = "Category: Comfort Upgrade";
+          badgeClass = "bg-amber-100 text-amber-800 border border-amber-300";
+          explanation = "Heat is beginning to interfere with how your home functions. Cooling isn’t just about comfort anymore.";
+          verdictShort = "Heat disrupts normal household function. Comfort is transitioning to a productivity utility.";
+        } else {
+          category = "Health-risk Hedge";
+          badgeText = "Category: Health-risk Hedge";
+          badgeClass = "bg-emerald-50 text-emerald-800 border border-emerald-200";
+          explanation = "Your answers suggest that cooling is becoming part of household resilience rather than household luxury.";
+          verdictShort = "Vulnerabilities and trap profiles indicate structured health-risk protection is recommended.";
+        }
+
+        currentBadge.className = `inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider ${badgeClass}`;
+        currentBadge.innerHTML = `<span class="w-2 h-2 rounded-full ${totalScore <= 8 ? 'bg-sand-500' : totalScore <= 15 ? 'bg-amber-500' : 'bg-emerald-500'}"></span> ${badgeText}`;
+        
+        classTitle.innerText = category;
+        classDesc.innerText = explanation;
+
+        cardCategory.innerText = category;
+        cardVerdict.innerText = verdictShort;
+        mobileCategoryText.innerText = category;
+        
+        let profileHTML = "Your answers suggest:<ul class='list-disc pl-4 mt-1 space-y-0.5 font-medium text-sand-900'>";
+        
+        profileHTML += vCount > 0 
+          ? "<li>household vulnerability is present</li>" 
+          : "<li>minimal occupant vulnerability</li>";
+          
+        profileHTML += pCount > 0 
+          ? "<li>elevated heat exposure or structural heat retention</li>" 
+          : "<li>standard heat exposure in the home layout</li>";
+          
+        profileHTML += dCount > 0 
+          ? "<li>significant disruption to daily routines</li>" 
+          : "<li>manageable routines during hot spells</li>";
+          
+        profileHTML += rCount > 0 
+          ? "<li>limited ways to adapt with past urgency revealed</li>" 
+          : "<li>flexible adaptive capacity exists</li>";
+          
+        profileHTML += "</ul>";
+        cardProfileDynamic.innerHTML = profileHTML;
+
+        updateCheckboxCardStyling();
+      }
+
+      const reflectionRadios = document.querySelectorAll('input[name="reflection"]');
+      const feedbackA = document.getElementById('feedback-A');
+      const feedbackB = document.getElementById('feedback-B');
+
+      reflectionRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          if (e.target.value === 'A') {
+            feedbackA.classList.remove('hidden');
+            feedbackB.classList.add('hidden');
+          } else {
+            feedbackB.classList.remove('hidden');
+            feedbackA.classList.add('hidden');
+          }
+        });
+      });
+
+      checkboxes.forEach(cb => {
+        cb.addEventListener('change', () => {
+          calculateScores();
+        });
+      });
+
+      function copyResult() {
+        const score = cardScore.innerText;
+        const category = cardCategory.innerText;
+        const verdict = cardVerdict.innerText;
+        
+        const v = vCountSpan.innerText;
+        const d = dCountSpan.innerText;
+        const p = pCountSpan.innerText;
+        const r = rCountSpan.innerText;
+
+        const activeBullets = Array.from(cardProfileDynamic.querySelectorAll('li'))
+          .map(li => `• ${li.innerText}`)
+          .join('\n');
+
+        const copyText = `--- Heatwave Insurance Test Result ---
+Score: ${score}
+Category Assessment: ${category}
+Summary: ${verdict}
+
+My Household Profile:
+${activeBullets}
+
+Dimensional Breakdown:
+• Who is at risk?: ${v}
+• What does heat cost you?: ${d}
+• How exposed is your home?: ${p}
+• How do you currently cope?: ${r}
+
+Test developed by Dr Yihan Xu, health economist.`;
+
+        const textArea = document.createElement("textarea");
+        textArea.value = copyText;
+        textArea.style.top = "0";
+        textArea.style.left = "0";
+        textArea.style.position = "fixed";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+          const successful = document.execCommand('copy');
+          if (successful) {
+            toast.classList.remove('hidden');
+            toast.style.opacity = '1';
+            setTimeout(() => {
+              toast.style.opacity = '0';
+              setTimeout(() => {
+                toast.classList.add('hidden');
+              }, 300);
+            }, 3000);
+          }
+        } catch (err) {
+          console.error('Could not copy text: ', err);
+        } finally {
+          document.body.removeChild(textArea);
+        }
+      }
+
+      copyBtn.addEventListener('click', copyResult);
+
+      resetBtn.addEventListener('click', () => {
+        form.reset();
+        feedbackA.classList.add('hidden');
+        feedbackB.classList.add('hidden');
+        calculateScores();
+      });
+
+      calculateScores();
+    });
+  </script>
+</body>
+</html>
